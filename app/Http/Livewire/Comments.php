@@ -24,7 +24,6 @@ class Comments extends Component
     public $comments;
     public $active;     //first one is always selected
     public $newTicket;
-//    public $ticketId;
 
     protected $listeners = [
         'fileUpload' => 'handleFileUpload',
@@ -55,9 +54,14 @@ class Comments extends Component
         $this->newTicket ='';
     }
 
-    public function ticketClicked($ticketId)
+    public function ticketClicked(SupportTicket $ticket)
     {
-        $this->active = $ticketId;
+//        $this->active = $ticketId;
+
+//        dd($ticket);
+        $this->active = $ticket->id;
+        $this->ticket = $ticket;
+        $this->comments = Comment::where('support_ticket_id', $ticket->id)->with('creator')->latest()->get()->toArray();
     }
 
 
@@ -153,6 +157,11 @@ class Comments extends Component
             $image->store('images');
         }
 
+    }
+
+    public function destroy($ticket)
+    {
+        $ticket->delete();
     }
 
     public function remove($commentId)
