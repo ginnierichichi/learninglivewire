@@ -23,7 +23,7 @@
     </div>
 
     <div class="text-center w-7/12 mx-2 rounded-lg border mt-4 shadow-lg p-2">
-        @if(isset($ticketId))
+        @if($active)
         {{-- In work, do what you enjoy. --}}
             <h1 class="text-2xl mb-6"> Comments</h1>
             @error('newComment') <span class="text-red-500 text-xs">{{$message}}</span>@enderror
