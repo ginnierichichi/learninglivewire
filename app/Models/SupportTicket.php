@@ -9,6 +9,8 @@ class SupportTicket extends Model
 {
     use HasFactory;
 
+    protected $guarded = [];
+
     public function comments()
     {
         return $this->hasMany(Comment::class);

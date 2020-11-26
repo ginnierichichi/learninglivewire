@@ -147,6 +147,7 @@
     <property name="WebServerToolWindowPanel.toolwindow.show.size" value="false" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/public" />
     <property name="nodejs_package_manager_path" value="npm" />
+    <property name="php.override.implement.member.chooser.php.doc" value="NONE" />
     <property name="settings.editor.selected.configurable" value="web-ide.project.structure" />
     <property name="vue.rearranger.settings.migration" value="true" />
   </component>
@@ -170,7 +171,7 @@
       <option name="presentableId" value="Default" />
       <updated>1606126830581</updated>
       <workItem from="1606126832785" duration="604000" />
-      <workItem from="1606127486725" duration="28993000" />
+      <workItem from="1606127486725" duration="55231000" />
     </task>
     <servers />
   </component>
@@ -178,18 +179,28 @@
     <option name="version" value="3" />
   </component>
   <component name="WindowStateProjectService">
+    <state x="-4074" y="-19" key="#com.intellij.ide.util.MemberChooser" timestamp="1606303081600">
+      <screen x="-5120" y="-350" width="2560" height="1440" />
+    </state>
+    <state x="-4074" y="-19" key="#com.intellij.ide.util.MemberChooser/-2560.-219.2560.1440/-5120.-350.2560.1440/0.0.1680.1050@-5120.-350.2560.1440" timestamp="1606303081600" />
+    <state x="-4168" y="72" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog" timestamp="1606304757948">
+      <screen x="-5120" y="-350" width="2560" height="1440" />
+    </state>
+    <state x="-4168" y="72" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog/-2560.-219.2560.1440/-5120.-350.2560.1440/0.0.1680.1050@-5120.-350.2560.1440" timestamp="1606304757948" />
     <state x="-4038" y="58" key="NewPhpFileDialog" timestamp="1606150070712">
       <screen x="-5120" y="-558" width="2560" height="1415" />
     </state>
     <state x="-4038" y="58" key="NewPhpFileDialog/-5120.-558.2560.1415/-2560.-558.2560.1415/0.25.1680.1025@-5120.-558.2560.1415" timestamp="1606150070712" />
-    <state x="-4441" y="-315" key="SettingsEditor" timestamp="1606129421800">
-      <screen x="-5120" y="-583" width="2560" height="1440" />
+    <state x="-4441" y="-82" key="SettingsEditor" timestamp="1606324405799">
+      <screen x="-5120" y="-350" width="2560" height="1440" />
     </state>
+    <state x="-4441" y="-82" key="SettingsEditor/-2560.-219.2560.1440/-5120.-350.2560.1440/0.0.1680.1050@-5120.-350.2560.1440" timestamp="1606324405799" />
     <state x="-4441" y="-315" key="SettingsEditor/-5120.-583.2560.1440/-2560.-583.2560.1440/0.0.1680.1050@-5120.-583.2560.1440" timestamp="1606129421800" />
-    <state x="-4257" y="-5" width="838" height="1033" key="search.everywhere.popup" timestamp="1606215214920">
-      <screen x="-5120" y="-325" width="2560" height="1415" />
+    <state x="-4257" y="-24" width="838" height="1052" key="search.everywhere.popup" timestamp="1606320477788">
+      <screen x="-5120" y="-350" width="2560" height="1440" />
     </state>
     <state x="-4257" y="-5" width="838" height="1033" key="search.everywhere.popup/-2560.-194.2560.1415/-5120.-325.2560.1415/0.25.1680.1025@-5120.-325.2560.1415" timestamp="1606215214920" />
+    <state x="-4257" y="-24" width="838" height="1052" key="search.everywhere.popup/-2560.-219.2560.1440/-5120.-350.2560.1440/0.0.1680.1050@-5120.-350.2560.1440" timestamp="1606320477788" />
     <state x="-4257" y="-238" width="838" height="1032" key="search.everywhere.popup/-5120.-558.2560.1415/-2560.-558.2560.1415/0.25.1680.1025@-5120.-558.2560.1415" timestamp="1606144000317" />
     <state x="-4257" y="-257" width="838" height="1051" key="search.everywhere.popup/-5120.-583.2560.1440/-2560.-583.2560.1440/0.0.1680.1050@-5120.-583.2560.1440" timestamp="1606145127918" />
   </component>

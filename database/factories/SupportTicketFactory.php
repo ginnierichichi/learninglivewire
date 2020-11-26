@@ -25,9 +25,8 @@ class SupportTicketFactory extends Factory
      */
     public function definition()
     {
-
         return [
-            //
+            'questions' => $this->faker->paragraph(),
         ];
     }
 }

@@ -3,6 +3,7 @@
 namespace App\Http\Livewire;
 
 use App\Models\Comment;
+use App\Models\SupportTicket;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Storage;
 use Intervention\Image\ImageManagerStatic;
@@ -17,13 +18,17 @@ class Comments extends Component
     use WithFileUploads;
     use WithPagination;
     public $newComment;
-    public $image;
-    public $photo;
-    public $ticketId;
+//    public $image;
+    public $images = [];
+    public $ticket;
+    public $comments;
+    public $active;     //first one is always selected
+    public $newTicket;
 
     protected $listeners = [
         'fileUpload' => 'handleFileUpload',
         'ticketSelected' => 'ticketSelected',
+        'ticketClicked',
     ];
 
 //    public function mount()
@@ -31,23 +36,44 @@ class Comments extends Component
 //        $this->comments = Comment::latest()->get();
 //    }
 
-    public function save()
+//    public function updatedPhoto()
+//    {
+//        $this->validate([
+//            'photo' => 'image|max:1024',
+//        ]);
+//    }
+
+
+    public function addTicket()
     {
-        $this->validate([
-           'photo' => 'image|max:1024',
+        $this->validate(['newTicket'=>'required|max:255']);
+
+        $createdTicket = SupportTicket::create([
+            'questions' => $this->newTicket,
         ]);
-
-        $this->photo->store('photos');
+        $this->newTicket ='';
     }
 
-    public function ticketSelected($ticketId)
+    public function ticketClicked($ticketId)
     {
-        $this->ticketId = $ticketId;
+        $this->active = $ticketId;
     }
 
-    public function handleFileUpload($imageData)
+
+    public function oops($index)
     {
-        $this->image = $imageData;
+        array_splice($this->images, $index, 1);
+    }
+
+    public function ticketSelected(SupportTicket $ticket)
+    {
+        $this->ticket = $ticket;
+        $this->comments = Comment::where('support_ticket_id', $ticket->id)->with('creator')->latest()->get()->toArray();
+    }
+
+    public function handleFileUpload($imagesData)
+    {
+        $this->images[] = $imagesData;
     }
 
     public function update($field)
@@ -59,39 +85,77 @@ class Comments extends Component
 
     public function addComment()
     {
-       $this->validate(['newComment'=>'required|max:255']);
-       $image = $this->storeImage();
+       $this->validate([
+           'newComment'=>'required|max:255',
+       ]);
+
+       $images = $this->storeImage();
+
+
         $createdComment = Comment::create([
             'body' => $this->newComment,
-            'user_id' => 1,
-            'image' => $image,
-            'support_ticket_id' => $this->ticketId,
+            'user_id' => auth()->id(),
+            'images' => $images,
+            'support_ticket_id' => $this->ticket->id,
         ]);
 
 //        $this->comments->prepend($createdComment);
 
-        $this->newComment ='';
-        $this->image = '';
+        $this->newComment = '';
+        $this->images = [];
 
         session()->flash('message', 'Comment added successfully!');
     }
 
     public function storeImage()
     {
-        if(!$this->image) {
+        if(count($this->images) == 0) {
             return null;
         }
 
-        $img = ImageManagerStatic::make($this->image)->encode('jpg');
-        $name = Str::random() . '.jpg';
-        Storage::disk('public')->put($name, $img);
-        return $name;
+        $filenames = [];
+
+        foreach($this->images as $image){
+            $img = ImageManagerStatic::make($image)->encode('jpg');
+
+            $filename = Str::random() . '.jpg';
+
+            Storage::disk('public')->put($filename, $img);
+
+            $filenames[] = $filename;
+        }
+
+        return $filenames;
+
+
+
+//        if(!$this->images) {
+//            return null;
+//        }
+//
+//        $img = ImageManagerStatic::make($this->images)->encode('jpg');
+//        $name = Str::random() . '.jpg';
+//        Storage::disk('public')->put($name, $img);
+//        return $name;
+    }
+
+
+    public function save()
+    {
+        $this->validate([
+            'images.*' => 'image|max:10240',
+        ]);
+
+        foreach ($this->images as $image) {
+            $image->store('images');
+        }
+
     }
 
     public function remove($commentId)
     {
          $comment = Comment::find($commentId);
-         Storage::disk('public')->delete($comment->image);
+         Storage::disk('public')->delete($comment->images);
          $comment->delete();
 //         $this->comments = $this->comments->except($commentId);
 
@@ -102,7 +166,8 @@ class Comments extends Component
     public function render()
     {
         return view('livewire.comments', [
-            'comments' => Comment::where('support_ticket_id', $this->ticketId)->latest()->paginate(10)
+            'tickets' => SupportTicket::all(),
+//            'comments' => Comment::where('support_ticket_id', $this->ticket->id)->latest()->paginate(10)
         ]);
     }
 
