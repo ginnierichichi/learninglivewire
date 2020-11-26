@@ -24,6 +24,7 @@ class Comments extends Component
     public $comments;
     public $active;     //first one is always selected
     public $newTicket;
+//    public $ticketId;
 
     protected $listeners = [
         'fileUpload' => 'handleFileUpload',
@@ -67,6 +68,7 @@ class Comments extends Component
 
     public function ticketSelected(SupportTicket $ticket)
     {
+        dd($ticket);
         $this->ticket = $ticket;
         $this->comments = Comment::where('support_ticket_id', $ticket->id)->with('creator')->latest()->get()->toArray();
     }
@@ -92,11 +94,12 @@ class Comments extends Component
        $images = $this->storeImage();
 
 
+
         $createdComment = Comment::create([
             'body' => $this->newComment,
             'user_id' => auth()->id(),
             'images' => $images,
-            'support_ticket_id' => $this->ticket->id,
+            'support_ticket_id' => $this->ticket['id'],
         ]);
 
 //        $this->comments->prepend($createdComment);
