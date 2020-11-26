@@ -17,6 +17,7 @@ class CreateSupportTicketsTable extends Migration
             $table->id();
             $table->string('questions');
             $table->timestamps();
+
         });
     }
 

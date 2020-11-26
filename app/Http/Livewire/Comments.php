@@ -70,12 +70,12 @@ class Comments extends Component
         array_splice($this->images, $index, 1);
     }
 
-    public function ticketSelected(SupportTicket $ticket)
-    {
-        dd($ticket);
-        $this->ticket = $ticket;
-        $this->comments = Comment::where('support_ticket_id', $ticket->id)->with('creator')->latest()->get()->toArray();
-    }
+//    public function ticketSelected(SupportTicket $ticket)
+//    {
+//        dd($ticket);
+//        $this->ticket = $ticket;
+//        $this->comments = Comment::where('support_ticket_id', $ticket->id)->with('creator')->latest()->get()->toArray();
+//    }
 
     public function handleFileUpload($imagesData)
     {
@@ -103,7 +103,7 @@ class Comments extends Component
             'body' => $this->newComment,
             'user_id' => auth()->id(),
             'images' => $images,
-            'support_ticket_id' => $this->ticket['id'],
+            'support_ticket_id' => $this->ticket->id,
         ]);
 
 //        $this->comments->prepend($createdComment);

@@ -108,6 +108,7 @@
                     </div>
                 </form>
 
+
                 <div class="flex justify-center">
                     @if(session()->has('message'))
                         <div class="alert alert-success bg-green-300 text-green-800 rounded-lg w-2/3 p-6 shadow">
