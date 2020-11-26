@@ -56,15 +56,35 @@
                     {{--                </div>--}}
                     {{--            </div>--}}
 
+                    <form enctype="multipart/form-data" method="post">
+                        <div class="px-6 pt-5 pb-6 border-2 border-gray-300 border-dashed rounded-md
+    mb-5 relative hover:bg-gray-50">
+                            <div class="text-center">
+                                <i class="fas fa-file-upload text-gray-400 fa-2x my-4"></i>
+                                <p class="mt-1 text-sm text-gray-600">
+                                    <button type="button"
+                                            class="font-medium text-brand-primary hover:underline focus:outline-none
+                        focus:underline transition duration-150 ease-in-out">
+                                        Click to upload files
+                                    </button>
+                                    or drag and drop files here
+                                </p>
+                                <input type="file" id="images" wire:change="$emit('fileChosen')"
+                                       class="absolute h-full left-0 top-0 opacity-0 mb-8 cursor-pointer" multiple>
+                            </div>
+                        </div>
+                    </form>
+
+
                     @foreach($images as $image)
                         @if ($image)
-                            <img src="{{ $image }}" alt="preview" class="mb-8 w-56">
+                            <img src="{{ $image }}" alt="preview" class="mb-8 w-56 rounded-lg shadow">
                         @endif
                     @endforeach
 
-                    <form enctype="multipart/form-data" method="post">
-                        <input type="file" id="images" class="mb-8" wire:change="$emit('fileChosen')" multiple>
-                    </form>
+{{--                    <form enctype="multipart/form-data" method="post">--}}
+{{--                        <input type="file" id="images" class="mb-8" wire:change="$emit('fileChosen')" multiple>--}}
+{{--                    </form>--}}
 
                     {{--            <div class="">--}}
                     {{--                    @if($images)--}}
@@ -111,7 +131,7 @@
                                 @if($comment['images'])
                                     @foreach ($comment['images'] as $image)
                                         <div class="flex-1 mr-2 " >
-                                            <img src="{{ asset($image) }}" alt="Comment Image" class="my-4 rounded-lg " width="300">
+                                            <img src="{{ asset($image) }}" alt="Comment Image" class="my-4 rounded-lg shadow " width="300">
                                         </div>
                                     @endforeach
                                 @endif
