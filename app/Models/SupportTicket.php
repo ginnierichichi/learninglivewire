@@ -13,6 +13,6 @@ class SupportTicket extends Model
 
     public function comments()
     {
-        return $this->hasMany(Comment::class);
+        return $this->hasMany(Comment::class, 'support_ticket_id');
     }
 }

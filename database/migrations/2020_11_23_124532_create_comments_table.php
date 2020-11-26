@@ -20,6 +20,8 @@ class CreateCommentsTable extends Migration
             $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('support_ticket_id');
             $table->timestamps();
+
+//            $table->foreign('support_ticket_id')->references('id')->on('comments')->onDelete('cascade');
         });
     }
 

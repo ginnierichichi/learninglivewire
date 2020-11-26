@@ -159,9 +159,11 @@ class Comments extends Component
 
     }
 
-    public function destroy($ticket)
+    public function bye(SupportTicket $ticket)
     {
+        $ticket->comments()->delete();
         $ticket->delete();
+
     }
 
     public function remove($commentId)
