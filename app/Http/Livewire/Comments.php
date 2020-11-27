@@ -21,6 +21,7 @@ class Comments extends Component
 //    public $image;
     public $images = [];
     public $ticket;
+    public $tickets;
     public $comments;
     public $active;     //first one is always selected
     public $newTicket;
@@ -31,10 +32,11 @@ class Comments extends Component
         'ticketClicked',
     ];
 
-//    public function mount()
-//    {
+    public function mount()
+    {
+        $this->tickets = SupportTicket::all()->toArray();
 //        $this->comments = Comment::latest()->get();
-//    }
+    }
 
 //    public function updatedPhoto()
 //    {
@@ -51,6 +53,9 @@ class Comments extends Component
         $createdTicket = SupportTicket::create([
             'questions' => $this->newTicket,
         ]);
+
+        array_unshift($this->tickets, $createdTicket);
+
         $this->newTicket ='';
     }
 
@@ -105,7 +110,7 @@ class Comments extends Component
             'images' => $images,
             'support_ticket_id' => $this->ticket->id,
         ]);
-
+        array_unshift($this->comments, $createdComment);
 //        $this->comments->prepend($createdComment);
 
         $this->newComment = '';
@@ -161,8 +166,18 @@ class Comments extends Component
 
     public function bye(SupportTicket $ticket)
     {
-        $ticket->comments()->delete();
+//        $ticket->comments()->delete();
         $ticket->delete();
+//
+        foreach ($this->tickets as $key => $arrayTicket){
+            if($arrayTicket['id'] == $ticket->id){
+                unset($this->tickets[$key]);
+            }
+        }
+
+
+
+//        $this->tickets = SupportTicket::all();
 
     }
 
@@ -170,7 +185,17 @@ class Comments extends Component
     {
          $comment = Comment::find($commentId);
          Storage::disk('public')->delete($comment->images);
+
+        foreach ($this->comments as $key => $arrayComment){
+            if($arrayComment['id'] == $comment->id){
+                unset($this->comments[$key]);
+            }
+        }
+
+//        unset($this->comments, $commentId);
          $comment->delete();
+
+
 //         $this->comments = $this->comments->except($commentId);
 
         session()->flash('message', 'Comment deleted successfully!');
@@ -180,7 +205,7 @@ class Comments extends Component
     public function render()
     {
         return view('livewire.comments', [
-            'tickets' => SupportTicket::all(),
+//            'tickets' => SupportTicket::all(),
 //            'comments' => Comment::where('support_ticket_id', $this->ticket->id)->latest()->paginate(10)
         ]);
     }

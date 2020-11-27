@@ -16,6 +16,9 @@ class CreateSupportTicketsTable extends Migration
         Schema::create('support_tickets', function (Blueprint $table) {
             $table->id();
             $table->string('questions');
+//            $table->foreignId('support_ticket_id')
+//                ->constrained()
+//                ->onDelete('cascade');
             $table->timestamps();
 
         });

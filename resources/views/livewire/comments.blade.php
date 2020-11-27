@@ -14,10 +14,14 @@
         </form>
 
         @foreach($tickets as $ticket)
-            <div class="flex justify-center mb-4">
-                <div class="flex items-center justify-between rounded-lg border bg-white p-3 w-2/3 {{$active == $ticket->id ? 'bg-gray-200' : 'shadow-lg'}}" wire:click="$emit('ticketClicked', {{$ticket->id}})">
-                    <p class="text-gray-800 text-left">{{$ticket->questions}}</p>
-                    <i wire:click="bye({{$ticket->id}})"
+            <div class="m-4 flex justify-center">
+                <div class="flex items-center border rounded-lg border bg-white p-3 w-10/12 {{$active == $ticket['id'] ? 'bg-gray-200' : 'shadow-lg'}}">
+                    <div class="flex-1" wire:click="$emit('ticketClicked', {{$ticket['id']}})">
+                        <div class="flex items-center">
+                            <p class="text-gray-800 text-left">{{$ticket['questions']}}</p>
+                        </div>
+                    </div>
+                    <i wire:click="bye({{$ticket['id']}})"
                        class="fas fa-times text-red-200 hover:text-red-600 cursor-pointer"></i>
                 </div>
             </div>
